@@ -8,9 +8,16 @@
 
 import Groq from "groq-sdk";
 
+// Validate API key is present
+const GROQ_API_KEY = process.env.GROQ_API_KEY;
+
+if (!GROQ_API_KEY) {
+  console.error("GROQ_API_KEY environment variable is not set!");
+}
+
 // Initialize Groq client
 const groq = new Groq({
-  apiKey: process.env.GROQ_API_KEY || "",
+  apiKey: GROQ_API_KEY || "",
 });
 
 export interface AIModelConfig {
@@ -76,12 +83,25 @@ export const OUMI_CONFIG = {
 } as const;
 
 /**
+ * Check if Groq API is properly configured
+ */
+function validateGroqConfig(): void {
+  if (!GROQ_API_KEY) {
+    throw new Error(
+      "GROQ_API_KEY environment variable is not configured. " +
+      "Please add GROQ_API_KEY to your environment variables in Vercel dashboard."
+    );
+  }
+}
+
+/**
  * Generate catch-up summary from conversation/meeting content
  */
 export async function generateCatchUpSummary(
   content: string,
   _context?: UserContext
 ): Promise<CatchUpResult> {
+  validateGroqConfig();
   const config = OUMI_CONFIG.catchUp;
 
   const prompt = `You are an AI assistant helping someone catch up on what they missed.
@@ -132,6 +152,7 @@ export async function rewriteMessage(
   intent: string,
   _context?: UserContext
 ): Promise<RewriteResult> {
+  validateGroqConfig();
   const config = OUMI_CONFIG.rewrite;
 
   const toneInstructions: Record<string, string> = {
@@ -196,8 +217,7 @@ export async function explainText(
   content: string,
   category?: string,
   _context?: UserContext
-): Promise<ExplainResult> {
-  const config = OUMI_CONFIG.explain;
+): Promise<ExplainResult> {  validateGroqConfig();  const config = OUMI_CONFIG.explain;
 
   const categoryInstructions: Record<string, string> = {
     medical:
@@ -261,10 +281,19 @@ Respond in JSON format:
  */
 export async function checkAIHealth(): Promise<{
   groq: boolean;
+  apiKeyConfigured: boolean;
+  error?: string;
 }> {
   const results = {
     groq: false,
+    apiKeyConfigured: !!GROQ_API_KEY,
+    error: undefined as string | undefined,
   };
+
+  if (!GROQ_API_KEY) {
+    results.error = "GROQ_API_KEY environment variable is not set";
+    return results;
+  }
 
   try {
     await groq.chat.completions.create({
@@ -273,8 +302,8 @@ export async function checkAIHealth(): Promise<{
       max_tokens: 5,
     });
     results.groq = true;
-  } catch {
-    // Groq unavailable
+  } catch (error) {
+    results.error = error instanceof Error ? error.message : "Groq API connection failed";
   }
 
   return results;
