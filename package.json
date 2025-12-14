@@ -1,0 +1,40 @@
+{
+  "name": "bragi-note",
+  "version": "0.1.0",
+  "private": true,
+  "description": "AI assistant for catching up, communicating clearly, and understanding complex information",
+  "scripts": {
+    "build": "turbo run build",
+    "dev": "turbo run dev",
+    "lint": "turbo run lint",
+    "type-check": "turbo run type-check",
+    "clean": "turbo run clean",
+    "format": "prettier --write \"**/*.{ts,tsx,md}\"",
+    "db:generate": "turbo run db:generate",
+    "db:push": "turbo run db:push",
+    "db:studio": "turbo run db:studio",
+    "db:seed": "turbo run db:seed"
+  },
+  "devDependencies": {
+    "@changesets/cli": "^2.27.7",
+    "@turbo/gen": "^1.13.4",
+    "prettier": "^3.3.2",
+    "turbo": "^1.13.4"
+  },
+  "packageManager": "yarn@4.5.3",
+  "workspaces": [
+    "apps/*",
+    "packages/*",
+    "tooling/*"
+  ],
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "keywords": [
+    "ai",
+    "communication",
+    "productivity",
+    "nextjs",
+    "typescript"
+  ]
+}
