@@ -5,11 +5,12 @@
 **For monorepo deployment on Vercel:**
 1. Go to [Vercel Dashboard](https://vercel.com/new)
 2. Import your repository
-3. Set **Root Directory** to `apps/web`
-4. Add environment variable: `GROQ_API_KEY`
-5. Click Deploy
+3. **IMPORTANT**: Keep **Root Directory** as `.` (root of repo, not `apps/web`)
+4. Framework: Next.js (auto-detected)
+5. Add environment variable: `GROQ_API_KEY`
+6. Click Deploy
 
-That's it! The `vercel.json` in the root will handle the build.
+The `vercel.json` in the root will handle the monorepo build.
 
 ---
 
@@ -34,12 +35,13 @@ That's it! The `vercel.json` in the root will handle the build.
 
 2. **Framework Preset**: Select "Next.js"
 
-3. **Root Directory**: Set to `apps/web`
-   - This tells Vercel where your Next.js app is located
+3. **Root Directory**: Keep as `.` (root directory)
+   - ⚠️ **DO NOT** set to `apps/web` - this will break workspace dependencies
+   - The root directory must stay at repository root for monorepo to work
 
-4. **Build Settings**: Leave as default
-   - Vercel will use the `vercel.json` configuration
-   - Build command: `turbo run build --filter=@bragi/web`
+4. **Build Settings**: Will use `vercel.json` automatically
+   - Build command: `yarn install && yarn build --filter=@bragi/web...`
+   - Output directory: `apps/web/.next`
    - Install command: `yarn install`
 
 5. **Environment Variables**:
@@ -75,12 +77,13 @@ vercel --prod
 
 ### Option 3: Manual vercel.json (Current Setup)
 
-The `vercel.json` at the root is configured for monorepo deployment. When you import the project in Vercel dashboard:
+The `vercel.json` at the root is configured for monorepo deployment:
 
-1. Vercel will read the root `vercel.json`
-2. Set **Root Directory** to `apps/web` in dashboard
-3. The build command will run from monorepo root
-4. All workspace dependencies (@bragi/ai, etc.) will be resolved
+1. Vercel reads the root `vercel.json` automatically
+2. Build command: `yarn install && yarn build --filter=@bragi/web...`
+3. The `...` syntax includes all workspace dependencies (@bragi/ai, etc.)
+4. Output directory: `apps/web/.next`
+5. All packages are built from the monorepo root
 
 ## 🔍 Kestra Verification
 
@@ -116,21 +119,32 @@ The response includes Kestra workflow tracking:
 
 ---
 
+**Error**: `Couldn't find package "@bragi/ai@workspace:*" required by "@bragi/web@0.1.0"`
+
+**Fix**: ⚠️ **MOST COMMON ISSUE**
+- **Root Directory MUST be `.` (root of repo)**
+- Do NOT set to `apps/web` - this breaks workspace dependencies
+- The `vercel.json` file handles the build from root
+- Redeploy after fixing
+
+---
+
 **Error**: "Yarn install fails"
 
 **Fix**: 
 1. Check if `.yarnrc.yml` is committed
 2. Ensure `yarn.lock` is committed
-3. Set Install Command to: `yarn install --immutable`
+3. Set Install Command to: `yarn install`
 
 ---
 
 **Error**: "Build command not found"
 
-**Fix**: Update build command to:
+**Fix**: Vercel uses `vercel.json` automatically. Build command:
 ```
-cd ../.. && turbo run build --filter=@bragi/web
+yarn install && yarn build --filter=@bragi/web...
 ```
+The `...` syntax includes all workspace dependencies.
 
 ### Runtime Errors
 
@@ -174,7 +188,7 @@ curl -X POST https://your-domain.vercel.app/api/ai/explain \
 ## 🎉 Success Checklist
 
 - ✅ Repository connected to Vercel
-- ✅ Root Directory set to `apps/web`
+- ✅ Root Directory set to `.` (repo root, NOT `apps/web`)
 - ✅ `GROQ_API_KEY` environment variable added
 - ✅ Build completes successfully
 - ✅ All 3 AI endpoints return 200
