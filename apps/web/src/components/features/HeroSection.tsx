@@ -2,21 +2,18 @@
 
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 export function HeroSection() {
-  const [particles, setParticles] = useState<Array<{ id: number; left: string; delay: number; size: number }>>([]);
-
-  useEffect(() => {
-    // Generate random particles
-    const newParticles = Array.from({ length: 30 }, (_, i) => ({
+  const [particles] = useState<Particle[]>(() => 
+    // Generate random particles on mount
+    Array.from({ length: 30 }, (_, i) => ({
       id: i,
       left: `${Math.random() * 100}%`,
       delay: Math.random() * 10,
       size: Math.random() * 4 + 2,
-    }));
-    setParticles(newParticles);
-  }, []);
+    }))
+  );
 
   return (
     <section className="pt-32 pb-20 text-center relative overflow-hidden scan-line">

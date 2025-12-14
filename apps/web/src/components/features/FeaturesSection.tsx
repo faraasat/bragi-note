@@ -38,7 +38,7 @@ export function FeaturesSection() {
                 Did I Miss Anything?
               </h3>
               <p className="text-gray-300 mb-6 leading-relaxed text-sm">
-                Upload meeting transcripts or chat exports. Get intelligent summaries of what changed, decisions made, action items, and deadlines—so you're never out of the loop.
+                Upload meeting transcripts or chat exports. Get intelligent summaries of what changed, decisions made, action items, and deadlines—so you&apos;re never out of the loop.
               </p>
               
               <div className="space-y-3">
@@ -109,7 +109,7 @@ export function FeaturesSection() {
               </div>
               
               <h3 className="text-2xl font-bold mb-4 text-pink-400 group-hover:text-pink-300 transition-colors">
-                Explain It Like I'm Stressed
+                Explain It Like I&apos;m Stressed
               </h3>
               <p className="text-gray-300 mb-6 leading-relaxed text-sm">
                 Paste complex documents—bank notices, legal contracts, medical reports—and get clear, calming explanations that tell you what it means for you.

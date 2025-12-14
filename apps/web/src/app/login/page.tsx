@@ -1,12 +1,10 @@
 "use client";
 
-import { Navbar } from "@/components/layout/Navbar";
-import { Footer } from "@/components/layout/Footer";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Toast } from "@/components/ui/toast";
 import { auth } from "@/lib/auth";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 
 export default function LoginPage() {
@@ -18,6 +16,13 @@ export default function LoginPage() {
   } | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
+
+  useEffect(() => {
+    // Redirect if already logged in
+    if (auth.getCurrentUser()) {
+      router.push("/dashboard");
+    }
+  }, [router]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -34,7 +39,7 @@ export default function LoginPage() {
         type: "success",
       });
       setTimeout(() => {
-        router.push("/");
+        router.push("/dashboard");
       }, 1500);
     } else {
       setToast({ message: result.error || "Login failed", type: "error" });
@@ -180,7 +185,7 @@ export default function LoginPage() {
           </form>
 
           <div className="mt-8 text-center text-sm text-gray-400">
-            Don't have an account?{" "}
+            Don&apos;t have an account?{" "}
             <Link
               href="/signup"
               className="text-cyan-400 hover:text-cyan-300 font-semibold transition-colors"

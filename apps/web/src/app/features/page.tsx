@@ -39,7 +39,7 @@ export default function FeaturesPage() {
               Did I Miss Anything?
             </h2>
             <p className="text-xl text-gray-300 mb-6">
-              "I was sick / overwhelmed / busy — and now I'm lost."
+              &quot;I was sick / overwhelmed / busy — and now I&apos;m lost.&quot;
             </p>
             <p className="text-gray-400 leading-relaxed">
               Upload meeting transcripts, Slack exports, or chat histories.
@@ -144,7 +144,7 @@ export default function FeaturesPage() {
               Say It Better
             </h2>
             <p className="text-xl text-gray-300 mb-6">
-              "I don't want to ruin this relationship."
+              &quot;I don&apos;t want to ruin this relationship.&quot;
             </p>
             <p className="text-gray-400 leading-relaxed">
               Avoid sending angry emails, passive-aggressive messages, or
@@ -175,10 +175,10 @@ export default function FeaturesPage() {
               </svg>
             </div>
             <h2 className="text-4xl font-bold mb-4 text-pink-400">
-              Explain It Like I'm Stressed
+              Explain It Like I&apos;m Stressed
             </h2>
             <p className="text-xl text-gray-300 mb-6">
-              "I don't understand this important thing."
+              &quot;I don&apos;t understand this important thing.&quot;
             </p>
             <p className="text-gray-400 leading-relaxed">
               Paste complex documents and get clear, calming explanations. No
@@ -216,7 +216,7 @@ export default function FeaturesPage() {
                 What You Get
               </h3>
               <p className="text-gray-300">
-                Calm, simple explanations with "What this means for you"
+                Calm, simple explanations with &quot;What this means for you&quot;
                 clarity—without the stress.
               </p>
             </div>

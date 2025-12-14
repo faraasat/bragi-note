@@ -1,12 +1,10 @@
 "use client";
 
-import { Navbar } from "@/components/layout/Navbar";
-import { Footer } from "@/components/layout/Footer";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Toast } from "@/components/ui/toast";
 import { auth } from "@/lib/auth";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 
 export default function SignupPage() {
@@ -19,6 +17,13 @@ export default function SignupPage() {
   } | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
+
+  useEffect(() => {
+    // Redirect if already logged in
+    if (auth.getCurrentUser()) {
+      router.push("/dashboard");
+    }
+  }, [router]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -35,7 +40,7 @@ export default function SignupPage() {
         type: "success",
       });
       setTimeout(() => {
-        router.push("/");
+        router.push("/dashboard");
       }, 1500);
     } else {
       setToast({ message: result.error || "Signup failed", type: "error" });
