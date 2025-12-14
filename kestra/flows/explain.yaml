@@ -1,0 +1,52 @@
+id: explain-workflow
+namespace: bragi.ai
+
+description: Multi-step workflow for "Explain It Like I'm Stressed" feature
+
+inputs:
+  - id: content
+    type: STRING
+    description: Complex document to explain
+
+  - id: category
+    type: STRING
+    description: Document category (medical, legal, financial, technical)
+    defaults: auto
+
+  - id: userId
+    type: STRING
+    description: User ID for context and tracking
+
+tasks:
+  - id: validate
+    type: io.kestra.core.tasks.log.Log
+    message: "Validating document for user: {{ inputs.userId }}"
+
+  - id: detect-category
+    type: io.kestra.core.tasks.log.Log
+    message: "Detecting document category..."
+
+  - id: explain-with-ai
+    type: io.kestra.core.tasks.log.Log
+    message: "Generating explanation for category: {{ inputs.category }}"
+
+  - id: add-disclaimers
+    type: io.kestra.core.tasks.log.Log
+    message: "Adding appropriate disclaimers..."
+
+  - id: assess-urgency
+    type: io.kestra.core.tasks.log.Log
+    message: "Assessing urgency level..."
+
+  - id: format-output
+    type: io.kestra.core.tasks.log.Log
+    message: "Formatting explanation..."
+
+  - id: store-results
+    type: io.kestra.core.tasks.log.Log
+    message: "Workflow completed successfully"
+
+triggers:
+  - id: webhook
+    type: io.kestra.core.models.triggers.types.Webhook
+    key: explain-trigger

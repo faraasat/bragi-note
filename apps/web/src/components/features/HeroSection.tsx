@@ -4,6 +4,13 @@ import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { useState } from "react";
 
+interface Particle {
+  id: number;
+  left: string;
+  delay: number;
+  size: number;
+}
+
 export function HeroSection() {
   const [particles] = useState<Particle[]>(() => 
     // Generate random particles on mount

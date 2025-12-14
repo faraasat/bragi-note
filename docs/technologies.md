@@ -165,9 +165,6 @@ Different features use different optimized models:
 
 - **Oumi** - Open-source model deployment
 - **Replicate** - Backup hosted inference
-- **OpenAI API** - GPT-4/GPT-4o fallback
-- **Anthropic API** - Claude 3.5 fallback
-- **Together.ai** - Open-source model hosting
 
 **ML Operations**:
 

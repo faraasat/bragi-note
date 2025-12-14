@@ -1,0 +1,55 @@
+id: catch-up-workflow
+namespace: bragi.ai
+
+description: Multi-step workflow for "Did I Miss Anything?" feature
+
+inputs:
+  - id: content
+    type: STRING
+    description: Meeting transcript or chat export to analyze
+
+  - id: userId
+    type: STRING
+    description: User ID for context and tracking
+
+tasks:
+  - id: validate
+    type: io.kestra.core.tasks.log.Log
+    message: "Validating input for user: {{ inputs.userId }}"
+
+  - id: preprocess
+    type: io.kestra.core.tasks.scripts.Bash
+    script: |
+      echo "Preprocessing content..."
+      echo "Content length: ${#CONTENT}"
+    env:
+      CONTENT: "{{ inputs.content }}"
+
+  - id: analyze-with-ai
+    type: io.kestra.core.tasks.log.Log
+    message: "Analyzing content with Oumi AI..."
+
+  - id: extract-decisions
+    type: io.kestra.core.tasks.log.Log
+    message: "Extracting key decisions..."
+
+  - id: extract-actions
+    type: io.kestra.core.tasks.log.Log
+    message: "Extracting action items..."
+
+  - id: extract-deadlines
+    type: io.kestra.core.tasks.log.Log
+    message: "Extracting deadlines..."
+
+  - id: format-output
+    type: io.kestra.core.tasks.log.Log
+    message: "Formatting results for user..."
+
+  - id: store-results
+    type: io.kestra.core.tasks.log.Log
+    message: "Workflow completed successfully"
+
+triggers:
+  - id: webhook
+    type: io.kestra.core.models.triggers.types.Webhook
+    key: catch-up-trigger

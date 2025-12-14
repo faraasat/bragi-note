@@ -66,41 +66,115 @@ export default function DashboardPage() {
 
     setIsProcessing(true);
 
-    // Simulate AI processing
-    await new Promise((resolve) => setTimeout(resolve, 1500));
+    try {
+      let response: Response;
+      let responseText = "";
 
-    const responses = {
-      "catch-up": `📋 **Summary of Key Points:**\n\n• Main decisions made and their reasoning\n• Action items assigned to team members\n• Upcoming deadlines (sorted by priority)\n• Important discussions you should know about\n\n*Based on analysis of: "${inputText.slice(0, 50)}${inputText.length > 50 ? "..." : ""}"*`,
-      "say-better": `✍️ **Refined Message:**\n\n"${inputText
-        .split(" ")
-        .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
-        .join(
-          " "
-        )}"\n\n**Improvements:**\n• More professional tone\n• Clearer intent\n• Reduced emotional language\n• Better structure`,
-      explain: `💡 **Simple Explanation:**\n\nThis document is about: ${inputText.slice(0, 100)}...\n\n**What it means for you:**\n• Key points in plain language\n• Important dates or actions needed\n• Potential impact on your situation\n\n**Bottom line:** This is ${Math.random() > 0.5 ? "important and requires your attention" : "informational - no immediate action needed"}.`,
-    };
+      // Call appropriate API based on selected feature
+      if (selectedFeature === "catch-up") {
+        response = await fetch("/api/ai/catch-up", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ 
+            text: inputText,
+            userId: user?.email 
+          }),
+        });
 
-    const newConversation: ConversationMessage = {
-      id: Date.now().toString(),
-      input: inputText,
-      response: responses[selectedFeature],
-      timestamp: new Date(),
-    };
+        if (!response.ok) {
+          throw new Error("Failed to process catch-up request");
+        }
 
-    const updated = [newConversation, ...conversations];
-    setConversations(updated);
+        const data = await response.json();
+        const result = data.data;
 
-    // Save to localStorage
-    if (user) {
-      localStorage.setItem(
-        `bragi_conversations_${user.email}`,
-        JSON.stringify(updated)
-      );
+        responseText = `📋 **Summary:**\n${result.summary}\n\n`;
+        
+        if (result.keyDecisions.length > 0) {
+          responseText += `**Key Decisions:**\n${result.keyDecisions.map((d: string) => `• ${d}`).join("\n")}\n\n`;
+        }
+        
+        if (result.actionItems.length > 0) {
+          responseText += `**Action Items:**\n${result.actionItems.map((a: string) => `• ${a}`).join("\n")}\n\n`;
+        }
+        
+        if (result.deadlines.length > 0) {
+          responseText += `**Deadlines:**\n${result.deadlines.map((d: {task: string; deadline: string}) => `• ${d.task} - ${d.deadline}`).join("\n")}\n\n`;
+        }
+        
+        if (result.importantDiscussions.length > 0) {
+          responseText += `**Important Discussions:**\n${result.importantDiscussions.map((d: string) => `• ${d}`).join("\n")}`;
+        }
+      } else if (selectedFeature === "say-better") {
+        response = await fetch("/api/ai/rewrite", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ 
+            text: inputText,
+            intent: "professional",
+            userId: user?.email 
+          }),
+        });
+
+        if (!response.ok) {
+          throw new Error("Failed to rewrite message");
+        }
+
+        const data = await response.json();
+        const result = data.data;
+
+        responseText = `✍️ **Refined Message:**\n\n"${result.rewrittenText}"\n\n**Improvements Made:**\n${result.improvements.map((i: string) => `• ${i}`).join("\n")}`;
+      } else {
+        // explain feature
+        response = await fetch("/api/ai/explain", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ 
+            text: inputText,
+            userId: user?.email 
+          }),
+        });
+
+        if (!response.ok) {
+          throw new Error("Failed to explain document");
+        }
+
+        const data = await response.json();
+        const result = data.data;
+
+        responseText = `💡 **TL;DR:** ${result.tldr}\n\n**Simple Explanation:**\n${result.simpleExplanation}\n\n**Key Points:**\n${result.keyPoints.map((p: string) => `• ${p}`).join("\n")}\n\n**Action Required:** ${result.actionRequired ? "Yes" : "No"}\n**Urgency:** ${result.urgencyLevel}`;
+      }
+
+      const newConversation: ConversationMessage = {
+        id: Date.now().toString(),
+        input: inputText,
+        response: responseText,
+        timestamp: new Date(),
+      };
+
+      const updated = [newConversation, ...conversations];
+      setConversations(updated);
+
+      // Save to localStorage
+      if (user) {
+        localStorage.setItem(
+          `bragi_conversations_${user.email}`,
+          JSON.stringify(updated)
+        );
+      }
+
+      setInputText("");
+      setUploadedFile(null);
+      setToast({ message: "Response generated!", type: "success" });
+    } catch (error) {
+      console.error("AI processing error:", error);
+      setToast({
+        message: error instanceof Error ? error.message : "Failed to process request",
+        type: "error",
+      });
+    } finally {
+      setIsProcessing(false);
     }
-
-    setInputText("");
-    setIsProcessing(false);
-    setToast({ message: "Response generated!", type: "success" });
   };
 
   const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {

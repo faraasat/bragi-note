@@ -1,0 +1,47 @@
+id: rewrite-workflow
+namespace: bragi.ai
+
+description: Multi-step workflow for "Say It Better" feature
+
+inputs:
+  - id: originalText
+    type: STRING
+    description: Original message to rewrite
+
+  - id: intent
+    type: STRING
+    description: Desired tone/intent (professional, friendly, etc.)
+
+  - id: userId
+    type: STRING
+    description: User ID for context and tracking
+
+tasks:
+  - id: validate
+    type: io.kestra.core.tasks.log.Log
+    message: "Validating message for user: {{ inputs.userId }}"
+
+  - id: analyze-tone
+    type: io.kestra.core.tasks.log.Log
+    message: "Analyzing original tone and sentiment..."
+
+  - id: rewrite-with-ai
+    type: io.kestra.core.tasks.log.Log
+    message: "Rewriting message with intent: {{ inputs.intent }}"
+
+  - id: quality-check
+    type: io.kestra.core.tasks.log.Log
+    message: "Performing quality checks..."
+
+  - id: format-output
+    type: io.kestra.core.tasks.log.Log
+    message: "Formatting rewritten message..."
+
+  - id: store-results
+    type: io.kestra.core.tasks.log.Log
+    message: "Workflow completed successfully"
+
+triggers:
+  - id: webhook
+    type: io.kestra.core.models.triggers.types.Webhook
+    key: rewrite-trigger
