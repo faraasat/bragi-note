@@ -56,19 +56,19 @@ export interface ExplainResult {
  */
 export const OUMI_CONFIG = {
   catchUp: {
-    model: "llama-3.1-70b-versatile", // Groq model
+    model: "llama-3.3-70b-versatile", // Groq model (updated Dec 2024)
     temperature: 0.3,
     maxTokens: 2000,
     topP: 0.9,
   },
   rewrite: {
-    model: "llama-3.1-70b-versatile", // Groq model
+    model: "llama-3.3-70b-versatile", // Groq model (updated Dec 2024)
     temperature: 0.7,
     maxTokens: 1000,
     topP: 0.95,
   },
   explain: {
-    model: "llama-3.1-70b-versatile", // Groq model
+    model: "llama-3.3-70b-versatile", // Groq model (updated Dec 2024)
     temperature: 0.4,
     maxTokens: 1500,
     topP: 0.9,
@@ -80,7 +80,7 @@ export const OUMI_CONFIG = {
  */
 export async function generateCatchUpSummary(
   content: string,
-  context?: UserContext
+  _context?: UserContext
 ): Promise<CatchUpResult> {
   const config = OUMI_CONFIG.catchUp;
 
@@ -130,7 +130,7 @@ Respond in JSON format with this structure:
 export async function rewriteMessage(
   originalText: string,
   intent: string,
-  context?: UserContext
+  _context?: UserContext
 ): Promise<RewriteResult> {
   const config = OUMI_CONFIG.rewrite;
 
@@ -195,7 +195,7 @@ Respond in JSON format:
 export async function explainText(
   content: string,
   category?: string,
-  context?: UserContext
+  _context?: UserContext
 ): Promise<ExplainResult> {
   const config = OUMI_CONFIG.explain;
 
@@ -269,7 +269,7 @@ export async function checkAIHealth(): Promise<{
   try {
     await groq.chat.completions.create({
       messages: [{ role: "user", content: "ping" }],
-      model: "llama-3.1-70b-versatile",
+      model: "llama-3.3-70b-versatile",
       max_tokens: 5,
     });
     results.groq = true;

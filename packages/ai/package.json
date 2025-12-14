@@ -10,7 +10,9 @@
   },
   "dependencies": {
     "@ai-sdk/openai": "^0.0.66",
+    "@kestra-io/libs": "^1.1.0",
     "ai": "^3.4.33",
+    "axios": "^1.13.2",
     "groq-sdk": "^0.7.0",
     "zod": "^3.23.8"
   },

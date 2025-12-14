@@ -1,23 +1,6 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
-  "buildCommand": "yarn build",
-  "devCommand": "yarn dev",
+  "buildCommand": "turbo run build --filter=@bragi/web",
   "installCommand": "yarn install",
-  "framework": "nextjs",
-  "outputDirectory": "apps/web/.next",
-  "env": {
-    "GROQ_API_KEY": "@groq-api-key",
-    "TOGETHER_API_KEY": "@together-api-key"
-  },
-  "build": {
-    "env": {
-      "GROQ_API_KEY": "@groq-api-key",
-      "TOGETHER_API_KEY": "@together-api-key"
-    }
-  },
-  "functions": {
-    "apps/web/src/app/api/**/*.ts": {
-      "maxDuration": 60
-    }
-  }
+  "framework": "nextjs"
 }

@@ -1,0 +1,9 @@
+# Vercel ignore file for monorepo
+.turbo
+node_modules
+.git
+.yarn
+docs
+kestra
+*.md
+!README.md

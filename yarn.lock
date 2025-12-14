@@ -357,8 +357,10 @@ __metadata:
   resolution: "@bragi/ai@workspace:packages/ai"
   dependencies:
     "@ai-sdk/openai": "npm:^0.0.66"
+    "@kestra-io/libs": "npm:^1.1.0"
     "@types/node": "npm:^22.10.1"
     ai: "npm:^3.4.33"
+    axios: "npm:^1.13.2"
     groq-sdk: "npm:^0.7.0"
     typescript: "npm:^5.7.2"
     zod: "npm:^3.23.8"
@@ -1077,6 +1079,13 @@ __metadata:
     "@jridgewell/resolve-uri": "npm:^3.1.0"
     "@jridgewell/sourcemap-codec": "npm:^1.4.14"
   checksum: 10c0/4b30ec8cd56c5fd9a661f088230af01e0c1a3888d11ffb6b47639700f71225be21d1f7e168048d6d4f9449207b978a235c07c8f15c07705685d16dc06280e9d9
+  languageName: node
+  linkType: hard
+
+"@kestra-io/libs@npm:^1.1.0":
+  version: 1.1.0
+  resolution: "@kestra-io/libs@npm:1.1.0"
+  checksum: 10c0/97f97620e87be11ab60cb3b59888a709f53b0155fd0b4b171a3c6a22da932e9b677b4461d94a22af5cea31e3fc5cbdd2b3fb487d336794449f8e721c7d0163ba
   languageName: node
   linkType: hard
 
@@ -2267,6 +2276,17 @@ __metadata:
   version: 4.11.0
   resolution: "axe-core@npm:4.11.0"
   checksum: 10c0/7d7020a568a824c303711858c2fcfe56d001d27e46c0c2ff75dc31b436cfddfd4857a301e70536cc9e64829d25338f7fb782102d23497ebdc66801e9900fc895
+  languageName: node
+  linkType: hard
+
+"axios@npm:^1.13.2":
+  version: 1.13.2
+  resolution: "axios@npm:1.13.2"
+  dependencies:
+    follow-redirects: "npm:^1.15.6"
+    form-data: "npm:^4.0.4"
+    proxy-from-env: "npm:^1.1.0"
+  checksum: 10c0/e8a42e37e5568ae9c7a28c348db0e8cf3e43d06fcbef73f0048669edfe4f71219664da7b6cc991b0c0f01c28a48f037c515263cb79be1f1ae8ff034cd813867b
   languageName: node
   linkType: hard
 
@@ -3617,6 +3637,16 @@ __metadata:
   version: 3.3.3
   resolution: "flatted@npm:3.3.3"
   checksum: 10c0/e957a1c6b0254aa15b8cce8533e24165abd98fadc98575db082b786b5da1b7d72062b81bfdcd1da2f4d46b6ed93bec2434e62333e9b4261d79ef2e75a10dd538
+  languageName: node
+  linkType: hard
+
+"follow-redirects@npm:^1.15.6":
+  version: 1.15.11
+  resolution: "follow-redirects@npm:1.15.11"
+  peerDependenciesMeta:
+    debug:
+      optional: true
+  checksum: 10c0/d301f430542520a54058d4aeeb453233c564aaccac835d29d15e050beb33f339ad67d9bddbce01739c5dc46a6716dbe3d9d0d5134b1ca203effa11a7ef092343
   languageName: node
   linkType: hard
 
