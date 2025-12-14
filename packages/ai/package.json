@@ -12,7 +12,6 @@
     "@ai-sdk/openai": "^0.0.66",
     "ai": "^3.4.33",
     "groq-sdk": "^0.7.0",
-    "together-ai": "^0.6.0-alpha.5",
     "zod": "^3.23.8"
   },
   "devDependencies": {

@@ -2,21 +2,15 @@
  * Oumi AI Client for Bragi Note
  * Uses free-tier AI APIs for MVP phase
  * 
- * Providers:
- * - Groq: Fast Llama inference (free tier)
- * - Together AI: Open source models (free tier)
+ * Provider:
+ * - Groq: Fast Llama inference (free tier, 7000 RPM)
  */
 
 import Groq from "groq-sdk";
-import Together from "together-ai";
 
-// Initialize clients
+// Initialize Groq client
 const groq = new Groq({
   apiKey: process.env.GROQ_API_KEY || "",
-});
-
-const together = new Together({
-  apiKey: process.env.TOGETHER_API_KEY || "",
 });
 
 export interface AIModelConfig {
@@ -267,11 +261,9 @@ Respond in JSON format:
  */
 export async function checkAIHealth(): Promise<{
   groq: boolean;
-  together: boolean;
 }> {
   const results = {
     groq: false,
-    together: false,
   };
 
   try {

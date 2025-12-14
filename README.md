@@ -35,6 +35,8 @@ Simplify complex documents:
 - **Deployment**: Vercel (Free tier)
 - **Monorepo**: Turborepo + Yarn workspaces
 
+📐 **[View Architecture Diagrams](./ARCHITECTURE.md)** - Detailed system architecture with Mermaid diagrams
+
 ## 🚀 Quick Start
 
 ### Prerequisites
@@ -102,13 +104,11 @@ Create `.env.local` with:
 GROQ_API_KEY=your_groq_api_key_here
 
 # Optional
-TOGETHER_API_KEY=your_together_api_key_here
 NEXT_PUBLIC_APP_URL=http://localhost:3000
 ```
 
-**Get API Keys:**
-- Groq (Free): https://console.groq.com/keys
-- Together AI (Free): https://api.together.xyz/settings/api-keys
+**Get API Key:**
+- Groq (Free tier: 7,000 RPM, 200M+ tokens/day): https://console.groq.com/keys
 
 ## 📦 Monorepo Commands
 
@@ -138,9 +138,8 @@ yarn workspace @bragi/ai build
    ```
 
 2. **Add Environment Variables** (Vercel Dashboard)
-   - `GROQ_API_KEY`
-   - `TOGETHER_API_KEY` (optional)
-   - `NEXT_PUBLIC_APP_URL`
+   - `GROQ_API_KEY` (required)
+   - `NEXT_PUBLIC_APP_URL` (optional)
 
 3. **Deploy**
    ```bash

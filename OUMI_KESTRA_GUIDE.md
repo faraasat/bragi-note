@@ -6,16 +6,16 @@ Bragi Note uses a modern AI architecture with:
 - **Oumi**: Open-source AI framework for cost-effective model deployment
 - **Kestra**: Workflow orchestration patterns for multi-step AI pipelines
 - **Next.js 16**: Full-stack framework deployed on Vercel
-- **Free Tier APIs**: Groq and Together AI for MVP phase
+- **Free Tier API**: Groq (7,000 RPM, 200M+ tokens/day) for MVP phase
 
 ## Technology Stack
 
 ### AI Layer (Oumi)
-- **Groq API**: Fast Llama 3.1 70B inference (7,000 RPM free tier)
-- **Together AI**: Alternative open-source models
-- **Models Used**:
-  - Llama 3.1 70B Versatile (via Groq)
-  - Fast, cost-effective, and production-ready
+- **Groq API**: Fast Llama 3.1 70B inference
+- **Free Tier**: 7,000 RPM, 200M+ tokens/day
+- **Speed**: ~300 tokens/second
+- **Model**: Llama 3.1 70B Versatile
+- **Cost**: $0 (free tier for MVP)
 
 ### Orchestration Layer (Kestra)
 - **Implementation**: TypeScript workflow functions
@@ -83,16 +83,12 @@ Create `.env.local` in the root and `apps/web/`:
 # Required: Groq API (Free tier)
 GROQ_API_KEY=gsk_...
 
-# Optional: Together AI backup
-TOGETHER_API_KEY=...
-
 # Application URL
 NEXT_PUBLIC_APP_URL=http://localhost:3000
 ```
 
-**Get API Keys:**
-- Groq: https://console.groq.com/keys (7,000 RPM free)
-- Together AI: https://api.together.xyz/settings/api-keys
+**Get API Key:**
+- Groq: https://console.groq.com/keys (Free tier: 7,000 RPM, 200M+ tokens/day)
 
 ### 3. Run Development Server
 

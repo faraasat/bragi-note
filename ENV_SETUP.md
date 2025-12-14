@@ -4,17 +4,11 @@
 
 ### 1. AI API Keys (Required)
 
-#### Groq API (Recommended for MVP)
-- **Free Tier**: 7,000 requests per minute
-- **Models**: Llama 3.1 70B (fast inference)
+#### Groq API
+- **Free Tier**: 7,000 requests per minute, 200M+ tokens/day
+- **Models**: Llama 3.1 70B (fast inference, ~300 tokens/second)
 - **Sign up**: https://console.groq.com
 - **Get API key**: https://console.groq.com/keys
-
-#### Together AI API (Alternative)
-- **Free Tier**: Available for testing
-- **Models**: Various open-source models
-- **Sign up**: https://api.together.xyz
-- **Get API key**: https://api.together.xyz/settings/api-keys
 
 ### 2. Environment Variables Setup
 
@@ -32,7 +26,6 @@
 
 ```
 GROQ_API_KEY=gsk_...          # Required for AI processing
-TOGETHER_API_KEY=...          # Optional fallback
 NEXT_PUBLIC_APP_URL=...       # Your application URL
 ```
 
@@ -47,13 +40,9 @@ KESTRA_API_KEY=...            # Kestra authentication
 
 ### Groq
 - **Rate Limit**: 7,000 requests/minute
-- **Daily Tokens**: Generous free tier
-- **Best for**: Fast Llama 3.1 inference
-
-### Together AI
-- **Rate Limit**: Varies by model
-- **Free Tier**: Available for testing
-- **Best for**: Alternative models
+- **Daily Tokens**: 200M+ tokens/day
+- **Speed**: ~300 tokens/second
+- **Models**: Llama 3.1 70B Versatile
 
 ## Vercel Deployment
 

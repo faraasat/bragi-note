@@ -49,7 +49,6 @@ GROQ_API_KEY=gsk_your_actual_key_here
 
 **Optional:**
 ```
-TOGETHER_API_KEY=your_together_key_here
 NEXT_PUBLIC_APP_URL=https://your-domain.vercel.app
 ```
 
