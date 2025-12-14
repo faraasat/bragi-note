@@ -288,6 +288,7 @@
   animation: rotateHologram 6s linear infinite;
   opacity: 0;
   transition: opacity 0.4s;
+  z-index: -10;
 }
 
 .holographic-card:hover::before {
