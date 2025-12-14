@@ -1,6 +1,6 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
-  "buildCommand": "yarn build --filter=@bragi/web...",
+  "buildCommand": "ls .yarn && pwd && ls .yarn/releases && yarn build --filter=@bragi/web...",
   "outputDirectory": "apps/web/.next",
   "installCommand": "yarn install",
   "framework": "nextjs"
